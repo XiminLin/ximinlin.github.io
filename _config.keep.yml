@@ -108,7 +108,7 @@ post:
   # Author label
   author_label:
     enable: true
-    auto: true  # if true, show Lv1, Lv2, Lv3... , If false, show custom label
+    auto: false  # if true, show Lv1, Lv2, Lv3... , If false, show custom label
     # label array item can be one or more
     custom_label_list: [ "Trainee", "Engineer", "Architect", "CTO", "BOSS" ]
 
@@ -213,10 +213,10 @@ lazyload:
 
 
 # ---------------------------------------------------------------------------------------
-# CDN
+# CDN 现在有bug，还是别用了
 # ---------------------------------------------------------------------------------------
 cdn:
-  enable: true
+  enable: false
 
 
 # ---------------------------------------------------------------------------------------
@@ -230,7 +230,7 @@ pjax:
 # Footer settings
 # ---------------------------------------------------------------------------------------
 footer:
-  since: Since 3.1415926      # the starting year of your website, Can be null
+  since: 2020      # the starting year of your website, Can be null
   icp: # ICP record number of your website, Can be null
 
 
