@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Ximin Lin">
+    
+    <title>
+        
+            end to end human pose and mesh reconstruction with transformers |
+        
+        Ximin Lin
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/icons8-morty-smith-100.png">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"en","path":"search.json"};
+    KEEP.theme_config = {"toc":{"enable":true,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#42bdff","avatar":"/images/icons8-morty-smith-100.png","favicon":"/images/icons8-morty-smith-100.png","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":true,"scale":true},"first_screen":{"enable":true,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":true},"percent":{"enable":false}}},"local_search":{"enable":true,"preload":false},"code_copy":{"enable":true,"style":"default"},"pjax":{"enable":true},"lazyload":{"enable":true},"version":3.13};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+        <span class="scroll-progress-bar"></span>
+    
+
+    
+        <span class="pjax-progress-bar"></span>
+        <span class="pjax-progress-icon">
+            <i class="fas fa-circle-notch fa-spin"></i>
+        </span>
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+                <a class="logo-image" href="/">
+                    <img src="/images/icons8-morty-smith-100.png">
+                </a>
+            
+            <a class="logo-title" href="/">
+                Ximin Lin
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                HOME
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                ARCHIVES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/categories"
+                            >
+                                CATEGORIES
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/tags"
+                            >
+                                TAGS
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/about"
+                            >
+                                ABOUT
+                            </a>
+                        </li>
+                    
+                    
+                        <li class="menu-item search search-popup-trigger">
+                            <i class="fas fa-search"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fas fa-search"></i></div>
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">HOME</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">ARCHIVES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/categories">CATEGORIES</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/tags">TAGS</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/about">ABOUT</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">end to end human pose and mesh reconstruction with transformers</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/icons8-morty-smith-100.png">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Ximin Lin</span>
+                        
+                            <span class="author-label">Trainee</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;2021-09-30 13:08:00
+    </span>
+    
+        <span class="article-categories article-meta-item">
+            <i class="fas fa-folder"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/categories/paper-review/">paper review</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+    
+        <span class="article-tags article-meta-item">
+            <i class="fas fa-tags"></i>&nbsp;
+            <ul>
+                
+                    <li>
+                        <a href="/tags/computer-vision/">computer vision</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/3d-human-pose/">3d human pose</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/3d-human-shape/">3d human shape</a>&nbsp;
+                    </li>
+                
+                    <li>
+                        | <a href="/tags/transformers/">transformers</a>&nbsp;
+                    </li>
+                
+            </ul>
+        </span>
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fas fa-file-word"></i>&nbsp;<span>734 Words</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fas fa-clock"></i>&nbsp;<span>3 Mins</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fas fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="1-当前方向"><a href="#1-当前方向" class="headerlink" title="1. 当前方向"></a>1. 当前方向</h1><h2 id="todo"><a href="#todo" class="headerlink" title="todo:"></a>todo:</h2><ol>
+<li>了解 3d 人体的各种表示方法</li>
+<li>了解 SMPL 等方法</li>
+<li>了解 直接 regress 的方法</li>
+<li>了解 masked vertex modeling</li>
+</ol>
+<h2 id="1-1-parametric-model"><a href="#1-1-parametric-model" class="headerlink" title="1.1 parametric model:"></a>1.1 parametric model:</h2><p>利用 ==提前定义好的 parametric model== 像是 SMPL 来 predict shape 和 pose coefficients</p>
+<p>而且提出可以 ==利用其他的检测信息==，类似 skeleton , segmentation map, 其他的 optimization strategies 和 利用 temporal info 来 提升效果</p>
+<ol>
+<li>优点：<ol>
+<li>有 strong prior about human body, 所以对于 environment 比较 robust</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>受到 定义的 parametric model 的限制，不能很好的 scale 到其他的 task 上，类似 hand-reconstruction 这种</li>
+</ol>
+</li>
+</ol>
+<h2 id="1-2-直接-regress-vertex"><a href="#1-2-直接-regress-vertex" class="headerlink" title="1.2 直接 regress vertex:"></a>1.2 直接 regress vertex:</h2><p>考虑利用 ==3D mesh, volumetric space, 或者 occupancy field 来表示3D人体==</p>
+<p>用 Graph CNN 来估计 vertex-vertex interaction, 或者直接估计 vertex coordinates</p>
+<ol>
+<li>优点：<ol>
+<li>能很好的 scale 到 别的 reconstruction task 上，只要提供足够的数据</li>
+</ol>
+</li>
+<li>缺点：<ol>
+<li>不是很robust，对于遮挡问题，而且只能找到 local vertex 的关系，但是 non-local vertex 的 关系找不到</li>
+</ol>
+</li>
+</ol>
+<hr>
+<h1 id="2-方法"><a href="#2-方法" class="headerlink" title="2. 方法"></a>2. 方法</h1><h2 id="2-1-workflow"><a href="#2-1-workflow" class="headerlink" title="2.1 workflow"></a>2.1 workflow</h2><ol>
+<li><p>image -&gt; CNN 得到 2048-dim vector representation. 然后 和 template 的 joint queries 和 template vertex queries 合并起来。==(CNN 是 pretrained on ImageNet classification task)==</p>
+</li>
+<li><p>对于每一个要预测的3d点(joint + vertex), 把 一个3d query 和 上面的 feature 合并，然后得到 num_queries x 2051 的 matrix 给 Transformer 做 input.</p>
+</li>
+<li><p>期间加上 Masked Vertex Modeling (MVM), 类似 dropout. 然后 让 Transformer 预测 全部的 joint 和 vertex.</p>
+</li>
+<li><p>transformer 因为 output size 不变，所以这里用 cascade of transformers, 两个之间使用 dimension reduction 的方法 ==(用 encoder 来把 dimension 降下来)==</p>
+</li>
+</ol>
+<h2 id="2-2-loss"><a href="#2-2-loss" class="headerlink" title="2.2 loss"></a>2.2 loss</h2><ol>
+<li>$L_v$: 3d vertex 之间的 L1 loss</li>
+<li>$L_j$: 3d joint 之间的 L1 loss</li>
+<li>$L_j^{reg}$: 存在 regression matrix G, 能从 vertex 里面计算出 joint 坐标，这里就是L1 loss of GT joint 和 用 G 算出来的 joint</li>
+<li>$L_J^{proj}$: L1 loss of GT 2d joint point 和 投影出来的 2d joint point ==(这里在 transformer output 上加了一层 linear layer 能自动学习 camera params)==</li>
+</ol>
+<p>最后是 $L = \alpha(L_v + L_j + L_j^{reg}) + \beta L_J^{proj}$</p>
+<p>==alpha/beta 是 binary flag==, 看看当前的 dataset 有没有 ==3d 或者 2d ground truth.==</p>
+<h2 id="2-3-additional"><a href="#2-3-additional" class="headerlink" title="2.3 additional"></a>2.3 additional</h2><p>使用 mixed training 2d + 3d (????), todo…</p>
+<hr>
+<h1 id="3-experiments"><a href="#3-experiments" class="headerlink" title="3. experiments"></a>3. experiments</h1><h2 id="3-1-datasets"><a href="#3-1-datasets" class="headerlink" title="3.1 datasets:"></a>3.1 datasets:</h2><p><strong>Human3.6M</strong>: 2d + 3d annotations, 但是 3d mesh 有 license 不能用，转而使用 pseudo 3D meshes provided in papers: </p>
+<ol>
+<li>pose2mesh, ECCV, 2020    </li>
+<li>I2Lmashnet, ECCV, 2020</li>
+</ol>
+<p><strong>3DPW</strong>: outdoor 2d + 3d annotations, training images 22K, testing 35K.</p>
+<p><strong>UP-3D</strong>: outdoor image data, 3d annotations 是 model fitting 创造的, 7K training images.</p>
+<p><strong>MuCo-3DHP</strong>: synthesized data from MPI-INF-3DHP dataset, 有很多 real-world background images, 总共 200K training images.</p>
+<p><strong>COCO</strong>: 3d data 是 papers 生成的:</p>
+<ol>
+<li>learning to reconstruct human body pose and shape shape via model-fitting in the loop, ICCV, 2019<ol>
+<li>这里使用了 Simplify-X 来 fit 的: expressive body capture: 3d hands, face, and body from a single image, CVPR, 2019</li>
+</ol>
+</li>
+</ol>
+<p><strong>MPII</strong>: outdoor image with 2d poses, 14K training images</p>
+<p><strong>FreiHAND</strong>: 3d hand dataset, 130K training, 4K testing.</p>
+<hr>
+<h2 id="3-2-Metrics"><a href="#3-2-Metrics" class="headerlink" title="3.2 Metrics:"></a>3.2 Metrics:</h2><p><strong>MPJPE</strong>: mean-per-joint-positioning-error ==(用于3d pose)==: euclidean distance between GT joint 和 predicted joints</p>
+<p><strong>PA-MPJPE</strong>: ==(一般用于 reconstruction error)==, 用 ==Procrustes Analysis(PA)== 来做 3d alignment，然后再算 MPJPE, 因为和 scale 和 rigid pose 没关系</p>
+<p><strong>MPVE</strong>: mean-per-vertex-error, euclidean distance between GT vertex 和 predicted vertex</p>
+<hr>
+<h1 id="Results"><a href="#Results" class="headerlink" title="Results:"></a>Results:</h1><p>和众多 SOTA 比，主要使用 Human3.6M (?????) 来对比，都比 SOTA 好</p>
+
+        </div>
+
+        
+
+        
+            <div class="article-nav">
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2021/09/30/hello-world/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">Next posts</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+            <div class="comment-container">
+                <div class="comments-container">
+    <div id="comment-anchor"></div>
+    <div class="comment-area-title">
+        <i class="fas fa-comments">&nbsp;Comments</i>
+    </div>
+    
+
+        
+            
+    <div id="gitalk-container"></div>
+    <script data-pjax
+            src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
+    <script data-pjax>
+
+        function loadGitalk() {
+            let __gitalk__pathname = decodeURI(location.pathname);
+            const __gitalk__pathnameLength = __gitalk__pathname.length;
+            const __gitalk__pathnameMaxLength = 50;
+            if (__gitalk__pathnameLength > __gitalk__pathnameMaxLength) {
+                __gitalk__pathname = __gitalk__pathname.substring(0, __gitalk__pathnameMaxLength - 3) + '...';
+            }
+
+            try {
+                Gitalk && new Gitalk({
+                    clientID: 'f072307140808f4d2b09',
+                    clientSecret: '0808a81191acc02b358491f2c466f1a50980cdec',
+                    repo: 'ximinlin.github.io',
+                    owner: 'XiminLin',
+                    admin: ['XiminLin'],
+                    id: __gitalk__pathname,
+                    language: 'en'
+                }).render('gitalk-container');
+
+            } catch (e) {
+                window.Gitalk = null;
+            }
+        }
+
+        if ('true') {
+            const loadGitalkTimeout = setTimeout(() => {
+                loadGitalk();
+                clearTimeout(loadGitalkTimeout);
+            }, 1000);
+        } else {
+            window.addEventListener('DOMContentLoaded', loadGitalk);
+        }
+    </script>
+
+
+
+        
+    
+</div>
+
+            </div>
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>&nbsp;-&nbsp;
+            
+            2021&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Ximin Lin</a>
+        </div>
+        
+            <script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+            <div class="website-count info-item">
+                
+                    <span id="busuanzi_container_site_uv">
+                        Visitor Count&nbsp;<span id="busuanzi_value_site_uv"></span>&ensp;
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv">
+                        Totalview&nbsp;<span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="theme-info info-item">
+            Powered by <a target="_blank" href="https://hexo.io">Hexo</a>&nbsp;|&nbsp;Theme&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.13</a>
+        </div>
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+            <li class="tools-item page-aside-toggle">
+                <i class="fas fa-outdent"></i>
+            </li>
+        
+
+        <!-- go comment -->
+        
+            <li class="go-comment">
+                <i class="fas fa-comment"></i>
+            </li>
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+            <li class="tools-item rss flex-center">
+                <a class="flex-center"
+                   href="/atom.xml"
+                   target="_blank"
+                >
+                    <i class="fas fa-rss"></i>
+                </a>
+            </li>
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+        <aside class="page-aside">
+            <div class="post-toc-wrap">
+    <div class="post-toc">
+        <ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-%E5%BD%93%E5%89%8D%E6%96%B9%E5%90%91"><span class="nav-text">1. 当前方向</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#todo"><span class="nav-text">todo:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-1-parametric-model"><span class="nav-text">1.1 parametric model:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#1-2-%E7%9B%B4%E6%8E%A5-regress-vertex"><span class="nav-text">1.2 直接 regress vertex:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E6%96%B9%E6%B3%95"><span class="nav-text">2. 方法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-workflow"><span class="nav-text">2.1 workflow</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-loss"><span class="nav-text">2.2 loss</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-additional"><span class="nav-text">2.3 additional</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-experiments"><span class="nav-text">3. experiments</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-datasets"><span class="nav-text">3.1 datasets:</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-Metrics"><span class="nav-text">3.2 Metrics:</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Results"><span class="nav-text">Results:</span></a></li></ol>
+    </div>
+</div>
+        </aside>
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+        <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+          <span class="search-input-field-pre">
+            <i class="fas fa-keyboard"></i>
+          </span>
+            <div class="search-input-container">
+                <input autocomplete="off"
+                       autocorrect="off"
+                       autocapitalize="off"
+                       placeholder="Search..."
+                       spellcheck="false"
+                       type="search"
+                       class="search-input"
+                >
+            </div>
+            <span class="popup-btn-close">
+                <i class="fas fa-times"></i>
+            </span>
+        </div>
+        <div id="search-result">
+            <div id="no-result">
+                <i class="fas fa-spinner fa-pulse fa-5x fa-fw"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+    
+<script src="/js/local-search.js"></script>
+
+
+
+
+    
+<script src="/js/code-copy.js"></script>
+
+
+
+
+    
+<script src="/js/lazyload.js"></script>
+
+
+
+<div class="post-scripts pjax">
+    
+        
+<script src="/js/left-side-toggle.js"></script>
+
+<script src="/js/libs/anime.min.js"></script>
+
+<script src="/js/toc.js"></script>
+
+    
+</div>
+
+
+    
+<script src="/js/libs/pjax.min.js"></script>
+
+<script>
+    window.addEventListener('DOMContentLoaded', () => {
+        window.pjax = new Pjax({
+            selectors: [
+                'head title',
+                '.page-container',
+                '.pjax'
+            ],
+            history: true,
+            debug: false,
+            cacheBust: false,
+            timeout: 0,
+            analytics: false,
+            currentUrlFullReload: false,
+            scrollRestoration: false,
+            // scrollTo: true,
+        });
+
+        document.addEventListener('pjax:send', () => {
+            KEEP.utils.pjaxProgressBarStart();
+        });
+
+        document.addEventListener('pjax:complete', () => {
+            KEEP.utils.pjaxProgressBarEnd();
+            window.pjax.executeScripts(document.querySelectorAll('script[data-pjax], .pjax script'));
+            KEEP.refresh();
+        });
+    });
+</script>
+
+
+
+</body>
+</html>
