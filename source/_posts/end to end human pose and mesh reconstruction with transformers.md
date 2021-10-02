@@ -3,7 +3,6 @@ title: end to end human pose and mesh reconstruction with transformers
 categories: [paper review]
 tags: [computer vision, 3d human pose, 3d human shape, transformers]
 comment: true
-sticky: 0
 ---
 
 

@@ -2,7 +2,6 @@
 title: Hello World
 categories: [useless]
 tags: [hello_world]
-sticky: -1
 mathjax: true
 comment: true
 ---
