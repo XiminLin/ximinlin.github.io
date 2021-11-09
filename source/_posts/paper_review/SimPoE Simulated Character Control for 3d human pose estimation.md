@@ -1,7 +1,11 @@
 ---
 title: SimPoE Simulated Character Control for 3d human pose estimation
-categories: [paper review]
-tags: [computer vision, 3d human pose, 3d human shape, Reinforcement Learning]
+categories: 
+- paper review
+- computer vision
+tags:
+- 3d human shape
+- Reinforcement Learning
 comment: true
 mathjax: true
 ---
