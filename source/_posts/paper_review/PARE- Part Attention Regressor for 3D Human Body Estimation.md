@@ -1,5 +1,5 @@
 ---
-title: PARE: Part Attention Regressor for 3D Human Body Estimation
+title: PARE- Part Attention Regressor for 3D Human Body Estimation
 categories: 
   - paper review
 tags: 
