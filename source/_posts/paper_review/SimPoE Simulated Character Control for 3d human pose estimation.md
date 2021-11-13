@@ -1,12 +1,9 @@
 ---
 title: SimPoE Simulated Character Control for 3d human pose estimation
-categories: 
-- paper review
-- computer vision
-tags:
-- 3d human shape
-- Reinforcement Learning
+categories: [paper review]
+tags: [computer vision, 3d human pose and shape, Reinforcement Learning]
 comment: true
+sticky: 0
 mathjax: true
 ---
 
@@ -52,9 +49,9 @@ kinematics 已经很多研究了，但是 dynamics 还没怎么研究.
 
 # 2. method
 
-![image-20211001201237465](image-20211001201237465.png)
+![image-20211001201237465](SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001201237465.png)
 
-### 2.1 在 simulation 里面创建一个人的 model
+### 2.1 在 simulation 里面创建一个人的model
 
 用 SMPL model 的算法 类似 VIBE 来产生 skinned mesh human model，这些模型提供了：
 
@@ -101,18 +98,18 @@ kinematics 已经很多研究了，但是 dynamics 还没怎么研究.
 
    1. $r_t^p$ 是 pose reward, 计算 difference of local joint orientations $\sigma_t^j$ and ground truth $\hat{\sigma}_t^j$
 
-   <img src="image-20211001172725330.png" alt="image-20211001172725330" style="zoom:33%;" />
+   <img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001172725330.png" alt="image-20211001172725330" style="zoom:33%;" />
 
    > $J$ is number of joints, $\ominus$ is relative rotation between two rotations
 
-   2. $r_t^V$ is velocity reward<img src="image-20211001172642341.png" alt="image-20211001172642341" style="zoom:33%;" />
+   2. $r_t^V$ is velocity reward<img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001172642341.png" alt="image-20211001172642341" style="zoom:33%;" />
    3. $r_t^j$ is 3d world joint position reward
 
-   <img src="image-20211001172820774.png" alt="image-20211001172820774" style="zoom:33%;" />
+   <img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001172820774.png" alt="image-20211001172820774" style="zoom:33%;" />
 
    4. $r_t^k$ is 2d projection of joints to match 2d joints
 
-   <img src="image-20211001172913683.png" alt="image-20211001172913683" style="zoom:33%;" />
+   <img src="/Users/ximinlin/workspace/Computer_Vision/human_body_reconstruction/notes/SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001172913683.png" alt="image-20211001172913683" style="zoom:33%;" />
 
 2. 这里选择 **multiplication of sub-awards** 由 prior works “A scalable approach to control diverse behaviors for physically simulated characters” 显示，保证说 每个reward都不会被 overlooked.
 
@@ -120,7 +117,7 @@ kinematics 已经很多研究了，但是 dynamics 还没怎么研究.
 
 > 这里 RL 的 explore 是定义成 normal distribution 来选择 action 的，这里定义一个 mean 和 variance，mean 在最后应该是 optimal action
 
-<img src="image-20211001184256526.png" alt="image-20211001184256526" style="zoom: 50%;" />
+<img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001184256526.png" alt="image-20211001184256526" style="zoom: 50%;" />
 
 这里 $R_\theta$ 是 kinematic refinement unit, 这里的 $\tilde{q}_{t+1}^{(n)}$ 就是 kinematic pose after n iterations of refinement. 
 
@@ -132,7 +129,7 @@ $\mathcal{G}_\theta$ 是 control generation unit, 通过当前 pose 和 velocity
 
 #### 2.3.1 kinematic refinement unit $\mathcal{R}_\theta$
 
-<img src="image-20211001185712007.png" alt="image-20211001185712007" style="zoom:33%;" />
+<img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001185712007.png" alt="image-20211001185712007" style="zoom:33%;" />
 
 这里定义 MLP $\mathcal{U}_\theta$， $z$ 是 gradient of reprojection loss $\mathcal{L}$, 
 
@@ -140,7 +137,7 @@ $\mathcal{G}_\theta$ 是 control generation unit, 通过当前 pose 和 velocity
 
 **reprojection loss $\mathcal{L}$ 定义：**
 
-<img src="image-20211001190340020.png" alt="image-20211001190340020" style="zoom:33%;" />
+<img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001190340020.png" alt="image-20211001190340020" style="zoom:33%;" />
 
 大写 X 是 3d 的，小写是 2d 的，这里就是做了一个 projection，并且**乘上了 2d joints uncertainty**, 来 account for **keypoint uncertainty.**
 
@@ -166,7 +163,7 @@ $\mathcal{G}_\theta$ 是 control generation unit, 通过当前 pose 和 velocity
 
 我们使用两个 initial params $k_p'$ 和 $k_d'$，然后对于每个 15 steps，我们生成参数 $\lambda_{tj}^p$ and $\lambda_{tj}^d$ 来得到每一个 step 的 新的 $k_p$ 和 $k_d$
 
-<img src="image-20211001192613941.png" alt="image-20211001192613941" style="zoom:33%;" />
+<img src="SimPoE Simulated Character Control for 3d human pose estimation.assets/image-20211001192613941.png" alt="image-20211001192613941" style="zoom:33%;" />
 
 
 
@@ -252,3 +249,14 @@ experiments 中，**之前的 physics-based method 产生很大的 Accel 因为 
 
 
 
+# 5. Idea
+
+
+
+### 1. simulation
+
+Replace simulation with discriminator to support motions in the wild
+
+
+
+### 2. 

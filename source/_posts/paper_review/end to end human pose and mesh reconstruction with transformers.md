@@ -1,13 +1,14 @@
 ---
 title: end to end human pose and mesh reconstruction with transformers
 categories: 
-- paper review
-- computer vision
-tags:
-- 3d human shape
-- Reinforcement Learning
+  - paper review
+tags: 
+  - computer vision
+  - 3d human pose and shape
+  - transformers
 comment: true
 mathjax: true
+sticky: 0
 ---
 
 
